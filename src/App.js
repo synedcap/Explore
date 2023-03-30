@@ -4,14 +4,23 @@ import Login from "./components/Login";
 import Base from "./layout/Base";
 import Home from "./pages/Home";
 import PasswordForgot from "./pages/PasswordForgot";
+import  * as urlLinks   from './constant/Url'
+import Staff from "./pages/Staff";
+import Meeting from "./pages/Meeting";
+import Profil from "./pages/Profil";
+import Vacation from "./pages/Vacation";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={ <Login />} />
-        <Route path="/home" element={ <Base children={Home} />} />
-        <Route path="/password-rest" element={ <PasswordForgot/>} />
+        <Route path={urlLinks.loginUrl} element={ <Login />} />
+        <Route path={urlLinks.homeUrl} element={ <Base children={<Home/>} />} />
+        <Route path={urlLinks.staffUrl} element={ <Base children={<Staff/>} />} />
+        <Route path={urlLinks.meetingUrl} element={ <Base children={<Meeting/>} />} />
+        <Route path={urlLinks.profilUrl} element={ <Base children={<Profil/>} />} />
+        <Route path={urlLinks.vacationUrl} element={ <Base children={<Vacation/>} />} />
+        <Route path={urlLinks.passwordForgotUrl} element={ <PasswordForgot  />} />
       </Routes>
     </Router>
   );

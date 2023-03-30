@@ -1,7 +1,7 @@
 import React from "react";
 import { Link  } from "react-router-dom";
 import loginImg from "../assets/login2.jpg";
-import Home from "../pages/Home";
+import  * as urlLinks   from '../constant/Url';
 
 const Login = () => {
   return (
@@ -40,9 +40,9 @@ const Login = () => {
               <input type="checkbox" className="mr-2" />
               <p className="text-white"> Remember Me</p>
             </p>
-           <Link to='/password-rest'><p className="text-white ">Forgot Password</p></Link> 
+           <Link to={urlLinks.passwordForgotUrl}><p className="text-white hover:shadow-teal-500/40">Forgot Password</p></Link> 
           </div>
-          <Link to='/home'>
+          <Link to={urlLinks.homeUrl}>
           <button
             className="w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white
            font-semibold rounded-lg "
