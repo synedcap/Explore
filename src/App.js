@@ -9,6 +9,7 @@ import Staff from "./pages/Staff";
 import Meeting from "./pages/Meeting";
 import Profil from "./pages/Profil";
 import Vacation from "./pages/Vacation";
+import NewStaff from "./pages/NewStaff";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path={urlLinks.profilUrl} element={ <Base children={<Profil/>} />} />
         <Route path={urlLinks.vacationUrl} element={ <Base children={<Vacation/>} />} />
         <Route path={urlLinks.passwordForgotUrl} element={ <PasswordForgot  />} />
+        <Route path={urlLinks.newStaff} element={ <Base children={<NewStaff/>} />} />
       </Routes>
     </Router>
   );

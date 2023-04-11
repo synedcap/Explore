@@ -1,22 +1,31 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import loginImg from "../assets/login2.jpg";
 import { apiLoginUrl } from "../constant/apiConfig";
 import * as urlLinks from "../constant/Url";
 
-
-
-
-
 const Login = () => {
+  const navigate = useNavigate();
 
-  const [ data,setData ] = useState({});
+  const [data, setData] = useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(apiLoginUrl,data).then(result => {})
-  }
-  
+    axios
+      .post(apiLoginUrl, data)
+      .then((result) => {
+
+        if (result.status == 200) {
+          
+          localStorage.setItem("token", result.data.token);
+          navigate(urlLinks.homeUrl);
+        }
+      })
+      .catch((error) => {
+        // handle login error
+      });
+  };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
       <div className="hidden sm:block">
@@ -36,10 +45,10 @@ const Login = () => {
             </label>
             <input
               type="text"
-              onChange={e => {
-                setData(prev => {
-                  return {...prev,userName:e.target.value}
-                })
+              onChange={(e) => {
+                setData((prev) => {
+                  return { ...prev, userName: e.target.value };
+                });
               }}
               className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
             />
@@ -50,10 +59,10 @@ const Login = () => {
             </label>
             <input
               type="password"
-              onChange={e => {
-                setData(prev => {
-                  return {...prev,password:e.target.value}
-                })
+              onChange={(e) => {
+                setData((prev) => {
+                  return { ...prev, password: e.target.value };
+                });
               }}
               className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
             />
@@ -71,7 +80,7 @@ const Login = () => {
           </div>
 
           <button
-          type="submit"
+            type="submit"
             className="w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white
            font-semibold rounded-lg "
           >
