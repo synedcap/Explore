@@ -3,7 +3,7 @@ import { React, useState, useEffect } from "react";
 import * as apiUrl from "../constant/apiConfig";
 import { Link } from "react-router-dom";
 import { newStaff } from "../constant/Url";
-
+import dayjs from "dayjs";
 
 const Staff = () => {
   const token = localStorage.getItem("token");
@@ -40,24 +40,24 @@ const Staff = () => {
               <tr className="">
                 <th className="font-bold py-2 px-4 border-b border-l text-left">FirstName</th>
                 <th className="font-bold py-2 px-4 border-b border-l text-left">LastName</th>
-                <th className="font-bold py-2 px-4 border-b border-l text-left">DateOfBirth</th>
+                <th className="font-bold py-2 px-4 border-b border-l text-left">DateOfStart</th>
                 <th className="font-bold py-2 px-4 border-b border-l text-left">Post</th>
                 <th className="font-bold py-2 px-4 border-b border-l text-left">IsActive</th>
                 <th className="font-bold py-2 px-4 border-b border-l text-left">IsArchived</th>
                 <th className="font-bold py-2 px-4 border-b border-l text-left">Department</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-gray-100">
               {staffList?.map((item, index) => (
 
-                <tr key={index} className="table-row odd:bg-gray-100">
+                <tr key={index} className="table-row ">
                   <td className="p-2 border-b border-l text-left">{item.firstName}</td>
                   <td className="p-2 border-b border-l text-left">{item.lastName}</td>
-                  <td className="p-2 border-b border-l text-left">{item.dateOfBirth}</td>
+                  <td className="p-2 border-b border-l text-left">{ dayjs(item.dateOfBirth).format("D-MMM-YYYY")}</td>
                   <td className="p-2 border-b border-l text-left">{item.post}</td>
                   <td className="p-2 border-b border-l text-left">{item.isActive  ? 'Actif':'Inactif'}</td>
                   <td className="p-2 border-b border-l text-left">{item.isArchived ? 'Archivé': 'Pas archivé'}</td>
-                  <td className="p-2 border-b border-l text-left">{item.departments}</td>
+                  <td className="p-2 border-b border-l text-left">{item.Department.label}</td>
                 </tr>
               ))}
             </tbody>
