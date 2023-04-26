@@ -8,7 +8,7 @@ import * as urlLinks from "../constant/Url";
 const Login = () => {
   const navigate = useNavigate();
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
   const handleSubmit = (e) => {
     e.preventDefault();
     axios

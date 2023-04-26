@@ -7,5 +7,6 @@ const staffUrl = '/staff';
 const vacationUrl = '/vacations';
 const passwordForgotUrl = '/password-rest';
 const newStaff = '/new-staff';
+const editStaff = '/edit-staff/:idStaff';
 
-export {loginUrl,homeUrl,meetingUrl,profilUrl,staffUrl,vacationUrl,passwordForgotUrl,newStaff};
+export {loginUrl,homeUrl,meetingUrl,profilUrl,staffUrl,vacationUrl,passwordForgotUrl,newStaff,editStaff};

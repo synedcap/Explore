@@ -23,6 +23,7 @@ const App = () => {
         <Route path={urlLinks.vacationUrl} element={ <Base children={<Vacation/>} />} />
         <Route path={urlLinks.passwordForgotUrl} element={ <PasswordForgot  />} />
         <Route path={urlLinks.newStaff} element={ <Base children={<NewStaff/>} />} />
+        <Route path={urlLinks.editStaff} element={ <Base children={<NewStaff/>} />} />
       </Routes>
     </Router>
   );

@@ -3,6 +3,7 @@ import { React, useState, useEffect } from "react";
 import * as apiUrl from "../constant/apiConfig";
 import { Link } from "react-router-dom";
 import { newStaff } from "../constant/Url";
+import { PencilIcon, TrashIcon } from "@heroicons/react/solid";
 import dayjs from "dayjs";
 
 const Staff = () => {
@@ -29,35 +30,88 @@ const Staff = () => {
 
   return (
     <div>
-      <h1 className="text-black  text-2xl text-center py-6 mt-7 uppercase">STAFF LIST</h1>
-     
-      <Link to={newStaff} className="px-6 py-3 text-blue-100 no-underline rounded bg-blue-500 m-8 hover:text-blue-200">Nouveau</Link>
+      <h1 className="text-black  text-2xl text-center py-6 mt-7 uppercase">
+        STAFF LIST
+      </h1>
+
+      <Link
+        to={newStaff}
+        className="px-6 py-3 text-blue-100 no-underline rounded bg-blue-500 m-8 hover:text-blue-200"
+      >
+        Nouveau
+      </Link>
 
       <div className="p-8 overflow-auto relative">
         {staffList?.length !== 0 ? (
           <table className="table-auto border-x border-b w-full">
             <thead className="bg-black text-white">
               <tr className="">
-                <th className="font-bold py-2 px-4 border-b border-l text-left">FirstName</th>
-                <th className="font-bold py-2 px-4 border-b border-l text-left">LastName</th>
-                <th className="font-bold py-2 px-4 border-b border-l text-left">DateOfStart</th>
-                <th className="font-bold py-2 px-4 border-b border-l text-left">Post</th>
-                <th className="font-bold py-2 px-4 border-b border-l text-left">IsActive</th>
-                <th className="font-bold py-2 px-4 border-b border-l text-left">IsArchived</th>
-                <th className="font-bold py-2 px-4 border-b border-l text-left">Department</th>
+                <th className="font-bold py-2 px-4 border-b border-l text-left">
+                  FirstName
+                </th>
+                <th className="font-bold py-2 px-4 border-b border-l text-left">
+                  LastName
+                </th>
+                <th className="font-bold py-2 px-4 border-b border-l text-left">
+                  Email
+                </th>
+                <th className="font-bold py-2 px-4 border-b border-l text-left">
+                  DateOfStart
+                </th>
+                <th className="font-bold py-2 px-4 border-b border-l text-left">
+                  Post
+                </th>
+                <th className="font-bold py-2 px-4 border-b border-l text-left">
+                  IsActive
+                </th>
+                <th className="font-bold py-2 px-4 border-b border-l text-left">
+                  IsArchived
+                </th>
+                <th className="font-bold py-2 px-4 border-b border-l text-left">
+                  Department
+                </th>
+                <th className="font-bold py-2 px-4 border-b border-l text-left">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="bg-gray-100">
               {staffList?.map((item, index) => (
-
                 <tr key={index} className="table-row ">
-                  <td className="p-2 border-b border-l text-left">{item.firstName}</td>
-                  <td className="p-2 border-b border-l text-left">{item.lastName}</td>
-                  <td className="p-2 border-b border-l text-left">{ dayjs(item.dateOfBirth).format("D-MMM-YYYY")}</td>
-                  <td className="p-2 border-b border-l text-left">{item.post}</td>
-                  <td className="p-2 border-b border-l text-left">{item.isActive  ? 'Actif':'Inactif'}</td>
-                  <td className="p-2 border-b border-l text-left">{item.isArchived ? 'Archivé': 'Pas archivé'}</td>
-                  <td className="p-2 border-b border-l text-left">{item.Department.label}</td>
+                  <td className="p-2 border-b border-l text-left">
+                    {item.firstName}
+                  </td>
+                  <td className="p-2 border-b border-l text-left">
+                    {item.lastName}
+                  </td>
+                  <td className="p-2 border-b border-l text-left">
+                    {item.email}
+                  </td>
+                  <td className="p-2 border-b border-l text-left">
+                    {dayjs(item.dateOfBirth).format("D-MMM-YYYY")}
+                  </td>
+                  <td className="p-2 border-b border-l text-left">
+                    {item.post}
+                  </td>
+                  <td className="p-2 border-b border-l text-left">
+                    {item.isActive ? "Actif" : "Inactif"}
+                  </td>
+                  <td className="p-2 border-b border-l text-left">
+                    {item.isArchived ? "Archivé" : "Pas archivé"}
+                  </td>
+                  <td className="p-2 border-b border-l text-left">
+                    {item.Department.label}
+                  </td>
+                  <td className="p-2 border-b border-l text-left">
+                    <div className="flex items-center">
+                      <Link to={`/edit-staff/${item.id}`}>
+                        <PencilIcon className="w-6 h-6 text-yellow-600" />
+                      </Link>
+                      <Link>
+                         <TrashIcon className="w-6 h-6 text-red-600 ml-2" />
+                      </Link>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
