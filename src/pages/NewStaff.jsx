@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import * as apiUrl from "../constant/apiConfig";
 import { useNavigate, useParams } from "react-router-dom";
 import * as urlLinks from "../constant/Url";
+import dayjs from "dayjs";
+
 
 const NewStaff = () => {
   const token = localStorage.getItem("token");
@@ -11,7 +13,7 @@ const NewStaff = () => {
 
   const [data, setData] = useState();
 
-  //modification staff
+  //edit staff
   useEffect(() => {
     if (idStaff) {
       // console.log("ceci est une modification",idStaff)
@@ -31,6 +33,7 @@ const NewStaff = () => {
               email: result.data.email,
               post: result.data.post,
               dateOfBirth: result.data.dateOfBirth,
+              departments: result.data.departments,
             });
           });
       };
@@ -81,6 +84,29 @@ const NewStaff = () => {
       });
   };
 
+  //update staff
+  const updateStaff = (e) => {
+    e.preventDefault();
+    let dataToSend = {
+      firstName: data?.firstName,
+      lastName: data?.lastName,
+      email: data?.email,
+      post: data?.post,
+      dateOfBirth: data?.dateOfBirth,
+      departments: data?.departments,
+    };
+    axios
+      .put(apiUrl.updateStaff + idStaff, dataToSend, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((result) => {
+        navigate(urlLinks.staffUrl);
+      })
+      .catch((error) => {
+        // handle login error
+      });
+  };
+
   return (
     <div className="">
       <h1 className="text-black  text-2xl text-center py-6 mt-7 uppercase">
@@ -90,7 +116,7 @@ const NewStaff = () => {
       <div class="w-full max-w-md mx-auto">
         <form
           class="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4"
-          onSubmit={storeStaff}
+          onSubmit={idStaff ? updateStaff:storeStaff}
         >
           <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2" for="name">
@@ -156,7 +182,7 @@ const NewStaff = () => {
                 });
               }}
               type="date"
-              value={data?.dateOfBirth}
+              value={dayjs(data?.dateOfBirth).format('YYYY-MM-DD')}
               placeholder="Enter date of start"
             />
           </div>
@@ -187,6 +213,7 @@ const NewStaff = () => {
             <select
               class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
               id="departments"
+            
               onChange={(e) => {
                 setData((prev) => {
                   return { ...prev, departments: e.target.value };
@@ -195,7 +222,7 @@ const NewStaff = () => {
             >
               <option>Choose department</option>
               {departmentList?.map((department) => (
-                <option key={department.id} value={department.id}>
+                <option key={department.id} value={department.id} selected={department.id == data?.departments }>
                   {department.label}
                 </option>
               ))}

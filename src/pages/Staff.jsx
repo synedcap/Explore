@@ -28,6 +28,33 @@ const Staff = () => {
     getData();
   }, []);
 
+  const deleteStaff = (id) => {
+   
+    axios.delete(apiUrl.deleteStaff + id, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((result) => {
+      if (result.status == 200) {
+
+        const getData = async () => {
+          const response = await axios
+            .get(apiUrl.getStaffList, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((result) => {
+              // handle API response
+             
+              setSaffList(result.data);
+            })
+            .catch((error) => {
+              // handle API error
+            });
+        };
+        getData();
+      }
+    })
+  }
+
   return (
     <div>
       <h1 className="text-black  text-2xl text-center py-6 mt-7 uppercase">
@@ -107,9 +134,14 @@ const Staff = () => {
                       <Link to={`/edit-staff/${item.id}`}>
                         <PencilIcon className="w-6 h-6 text-yellow-600" />
                       </Link>
-                      <Link>
+                      <button 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        deleteStaff(item.id)
+                      }}
+                      >
                          <TrashIcon className="w-6 h-6 text-red-600 ml-2" />
-                      </Link>
+                      </button>
                     </div>
                   </td>
                 </tr>
