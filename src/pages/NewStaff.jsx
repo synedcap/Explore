@@ -4,12 +4,17 @@ import * as apiUrl from "../constant/apiConfig";
 import { useNavigate, useParams } from "react-router-dom";
 import * as urlLinks from "../constant/Url";
 import dayjs from "dayjs";
+import Loader from "../components/Loader";
+import { toast, ToastContainer } from "react-toastify";
+
+
 
 
 const NewStaff = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const { idStaff } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [data, setData] = useState();
 
@@ -64,6 +69,7 @@ const NewStaff = () => {
   //save staff
   const storeStaff = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     let dataToSend = {
       firstName: data?.firstName,
       lastName: data?.lastName,
@@ -77,10 +83,31 @@ const NewStaff = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((result) => {
-        navigate(urlLinks.staffUrl);
+       // navigate(urlLinks.staffUrl);
+       setData(
+        {
+          ...data, 
+            firstName:'',
+            lastName: '',
+            email:'',
+            post: '',
+            dateOfBirth: '',
+            departments: '',
+         
+        }
+       )
+       setIsLoading(false);
+       toast.success("Enregistrement éffectué", {
+        position: toast.POSITION.TOP_RIGHT
+      });
+
+
       })
       .catch((error) => {
         // handle login error
+        setIsLoading(false);
+        toast.error("Echec de l'enregistrement")
+        console.log(error)
       });
   };
 
@@ -109,11 +136,13 @@ const NewStaff = () => {
 
   return (
     <div className="">
+      <ToastContainer/>
       <h1 className="text-black  text-2xl text-center py-6 mt-7 uppercase">
         {idStaff ? "EDIT STAFF" : " NEW STAFF"}
       </h1>
 
       <div class="w-full max-w-md mx-auto">
+      
         <form
           class="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4"
           onSubmit={idStaff ? updateStaff:storeStaff}
@@ -229,14 +258,17 @@ const NewStaff = () => {
             </select>
           </div>
 
+          { isLoading ? <Loader/> : 
           <button
             type="submit"
             className="w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white
            font-semibold rounded-lg "
           >
             Enregistrer
-          </button>
+          </button> 
+          }
         </form>
+       
       </div>
     </div>
   );

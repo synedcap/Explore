@@ -4,12 +4,15 @@ import Login from "./components/Login";
 import Base from "./layout/Base";
 import Home from "./pages/Home";
 import PasswordForgot from "./pages/PasswordForgot";
-import  * as urlLinks   from './constant/Url'
 import Staff from "./pages/Staff";
 import Meeting from "./pages/Meeting";
 import Profil from "./pages/Profil";
 import Vacation from "./pages/Vacation";
 import NewStaff from "./pages/NewStaff";
+import "react-toastify/dist/ReactToastify.css";
+import Department from "./pages/Department";
+import NewDepartment from "./pages/NewDepartment";
+import * as urlLinks  from "./constant/Url";
 
 const App = () => {
   return (
@@ -23,6 +26,8 @@ const App = () => {
         <Route path={urlLinks.vacationUrl} element={ <Base children={<Vacation/>} />} />
         <Route path={urlLinks.passwordForgotUrl} element={ <PasswordForgot  />} />
         <Route path={urlLinks.newStaff} element={ <Base children={<NewStaff/>} />} />
+        <Route path={urlLinks.departmentUrl} element={ <Base children={<Department/>} />} />
+        <Route path={urlLinks.newDepartmentUrl} element={ <Base children={<NewDepartment/>} />} />
         <Route path={urlLinks.editStaff} element={ <Base children={<NewStaff/>} />} />
       </Routes>
     </Router>
